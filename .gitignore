@@ -1,0 +1,6 @@
+/release
+/release.zip
+/vendor
+.vs
+bin
+obj
