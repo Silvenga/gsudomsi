@@ -20,6 +20,15 @@ jobs:
     - name: Build
       run: msbuild ./gsudomsi.sln /p:Configuration=Release
 
+    - name: Test
+      shell: pwsh
+      run: |
+        $lastExitCode = (Start-Process -Wait msiexec -ArgumentList "-i src\gsudomsi\bin\Release\gsudomsi.msi /qn" -PassThru).ExitCode
+        if ($lastExitCode -ne 0) {
+          Write-Error "Got exit code $lastExitCode."
+          exit 1
+        }
+
     - name: Publish (On Release Tags)
       uses: ncipollo/release-action@v1
       if: startsWith(github.ref, 'refs/tags/')
