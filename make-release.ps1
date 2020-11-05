@@ -23,7 +23,7 @@ if (-not $downloadSuccess)
     throw "Version was not found."
 }
 
-$hash = [System.Text.Encoding]::UTF8.GetString($response.Content)
+$hash = [System.Text.Encoding]::UTF8.GetString($response.Content).Trim()
 
 $release = @{
     Version = $Version
